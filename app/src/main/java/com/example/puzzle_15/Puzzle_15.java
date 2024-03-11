@@ -36,7 +36,7 @@ public class Puzzle_15 {
     }
 
     public boolean isWin() {
-        // TODO: Homework. Проверка на победу.
+        // TODO: Homework. Проверка на победу. Перепроверить этот код(не тестировал).
         int number = 1;
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
@@ -69,4 +69,41 @@ public class Puzzle_15 {
         }
         return new Coordinate();
     }
+
+    public boolean move(Coordinate from, Coordinate to) {
+        if (!from.isValid() || !to.isValid()) {
+            return false;
+        }
+        if (from.x == to.x && from.y == to.y) {
+            return false;
+        }
+        if (from.x == to.x) {
+            if (from.y > to.y) {
+                for (int y = from.y; y > to.y; y--) {
+                    board[y][from.x] = board[y - 1][from.x];
+                }
+            } else {
+                for (int y = from.y; y < to.y; y++) {
+                    board[y][from.x] = board[y + 1][from.x];
+                }
+            }
+            board[to.y][to.x] = 0;
+            return true;
+        }
+        if (from.y == to.y) {
+            if (from.x > to.x) {
+                for (int x = from.x; x > to.x; x--) {
+                    board[from.y][x] = board[from.y][x - 1];
+                }
+            } else {
+                for (int x = from.x; x < to.x; x++) {
+                    board[from.y][x] = board[from.y][x + 1];
+                }
+            }
+            board[to.y][to.x] = 0;
+            return true;
+        }
+        return false;
+    }
+
 }
