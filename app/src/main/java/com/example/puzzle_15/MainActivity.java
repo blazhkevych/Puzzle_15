@@ -1,24 +1,73 @@
 package com.example.puzzle_15;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.GridLayout;
+
+
+@SuppressLint("MissingInflatedId")
 public class MainActivity extends AppCompatActivity {
+
+    Puzzle_15 game = new Puzzle_15();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        GridLayout grid = findViewById(R.id.gridLayout);
+        //if (grid == null) return;
+
+        //grid.removeAllViews();
+        game.init();
+
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+
+                int value = game.getValue(j, i);
+                if (value == 0) continue;
+
+                Button btn = new Button(this);
+                btn.setText(Integer.toString(value));
+                btn.setHeight(300);
+
+                GridLayout.Spec row = GridLayout.spec(i);
+                GridLayout.Spec col = GridLayout.spec(j);
+
+                GridLayout.LayoutParams lp = new GridLayout.LayoutParams(row, col);
+                lp.setMargins(10, 10, 10, 10);
+                grid.addView(btn, lp);
+
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Button btn = (Button) view;
+                        int value = Integer.parseInt((String) btn.getText());
+
+                        Puzzle_15.Coord coord = game.go(value);
+
+                        if (coord.isValid()) {
+
+                            GridLayout.Spec row = GridLayout.spec(coord.x);
+                            GridLayout.Spec col = GridLayout.spec(coord.y);
+
+                            GridLayout.LayoutParams lp = new GridLayout.LayoutParams(row, col);
+                            btn.setLayoutParams(lp);
+
+                            if (game.isWin()) {
+                                System.out.println("You win!"); // TODO: нужно протестировать
+
+                            }
+                        }
+
+                    }
+                });
+            }
+        }
     }
 }
