@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.Toast;
 
 
 @SuppressLint("MissingInflatedId")
@@ -60,11 +61,9 @@ public class MainActivity extends AppCompatActivity {
                             btn.setLayoutParams(lp);
 
                             if (game.isWin()) {
-                                System.out.println("You win!"); // TODO: нужно протестировать
-
+                                Toast.makeText(MainActivity.this, "You win!", Toast.LENGTH_SHORT).show();
                             }
                         }
-
                     }
                 });
             }

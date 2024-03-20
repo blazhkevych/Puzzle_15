@@ -1,5 +1,9 @@
 package com.example.puzzle_15;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Puzzle_15 {
 
     private int[][] gameField = {
@@ -35,14 +39,26 @@ public class Puzzle_15 {
     }
 
     public void init() {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 0; i < 16; i++) {
+            numbers.add(i);
+        }
+        Collections.shuffle(numbers);
 
-        //TO DO: Home Work
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                gameField[i][j] = numbers.get(i * 4 + j);
+            }
+        }
     }
 
     public boolean isWin() {
-        //TO DO: Home Work
-
-        return false;
+        for (int i = 0; i < 16; i++) {
+            if (gameField[i / 4][i % 4] != i + 1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int getValue(int x, int y) {
@@ -63,15 +79,16 @@ public class Puzzle_15 {
         return new Coord();
     }
 
-    public Coord go(int value) {
-
+    // TODO: В методе go() вы меняете местами выбранное число и ноль, но не проверяете, можно ли это сделать.
+    // В игре "Пятнашки" можно менять местами только соседние числа.
+    public Coord go(int value) { //
         Coord zeroCoord = findValue(0);
         Coord coord = findValue(value);
 
         if (Math.abs(zeroCoord.x - coord.x) + Math.abs(zeroCoord.y - coord.y) != 1) {
-
             return new Coord();
         }
+
         gameField[zeroCoord.x][zeroCoord.y] = value;
         gameField[coord.x][coord.y] = 0;
 
