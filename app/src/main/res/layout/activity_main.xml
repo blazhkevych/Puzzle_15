@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!-- The root layout of the activity, using ConstraintLayout for flexible positioning of child views -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,9 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- The GridLayout for the game board. It has 4 rows and 4 columns.
+             The width is set to wrap_content, which means it will be as wide as the widest child view (plus padding).
+             The height is also set to wrap_content, which means it will be as tall as the tallest child view (plus padding).
+             The layout_gravity is set to center_horizontal, which means the GridLayout will be centered horizontally within the ConstraintLayout.
+             The constraints are set to attach the GridLayout to the parent's top, bottom, start, and end, effectively centering it within the parent. -->
     <GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:columnCount="4"
@@ -18,36 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <!--<Button android:text="1" />
-
-        <Button android:text="2" />
-
-        <Button android:text="3" />
-
-        <Button android:text="4" />
-
-        <Button android:text="5" />
-
-        <Button android:text="6" />
-
-        <Button android:text="7" />
-
-        <Button android:text="8" />
-
-        <Button android:text="9" />
-
-        <Button android:text="10" />
-
-        <Button android:text="11" />
-
-        <Button android:text="12" />
-
-        <Button android:text="13" />
-
-        <Button android:text="14" />
-
-        <Button android:text="15" />-->
 
     </GridLayout>
 
